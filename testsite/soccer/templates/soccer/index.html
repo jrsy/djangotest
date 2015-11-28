@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Soccer Site</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+
+<body>
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#epl_table">League Table</a></li>
+	<li><a data-toggle="tab" href="#epl_results">Results</a></li>
+</ul>
+
+<div id="content" class="tab-content">
+	<div class="tab-pane fade in active" id="epl_table">
+		<table id="league_table" style="width:100%" border="3" cellspacing="1" cellpadding="1">
+			<tr>
+				<td>Team</td>
+				<td>Played</td>
+				<td>Wins</td>
+				<td>Draws</td>
+				<td>Losses</td>
+				<td>GF</td>
+				<td>GA</td>
+				<td>GD</td>
+				<td>Pts</td>
+			</tr>
+			{% for team in epl_league_table %}
+				<tr>
+					<td>{{ team.name }}</td>
+					<td>{{ team.played }}</td>
+					<td>{{ team.wins }}</td>
+					<td>{{ team.draws }}</td>
+					<td>{{ team.losses }}</td>
+					<td>{{ team.for }}</td>
+					<td>{{ team.against }}</td>
+					<td>{{ team.diff }}</td>
+					<td>{{ team.pts }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+	<div class="tab-pane fade" id="epl_results">
+		<table id="result_table" style="width:100%" border="3" cellspacing="1" cellpadding="1">
+			{% for key,value in epl_results.items %}
+				<tr>
+					<td>{{ key }}</td>
+				</tr>
+				<tr>
+					<td>Location</td>
+					<td>Kickoff Time</td>
+					<td>Home Team</td>
+					<td>Home Score</td>
+					<td>Away Score</td>
+					<td>Away Team</td>
+				</tr>
+				{% for match in value %}
+					<tr>
+						<td>{{ match.stadium }}</td>
+						<td>{{ match.ko_time }}</td>
+						<td>{{ match.home_team }}</td>
+						<td>{{ match.home_score }}</td>
+						<td>{{ match.away_score }}</td>
+						<td>{{ match.away_team }}</td>
+					</tr>
+				{% endfor %}
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$(".nav-tabs a").click(function() {
+		$(this).tab('show');
+	});
+});
+</script>
+</body>
+
+</html>
